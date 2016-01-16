@@ -24,19 +24,17 @@ call plug#begin()
   Plug 'wincent/terminus'
   Plug 'terryma/vim-multiple-cursors'
 call plug#end()
-
-if $COLORTERM == "gnome-terminal"
-	set t_cr=256
-endif
-
-syntax on 
+syntax on
 filetype plugin indent on
-
 set laststatus=2
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set expandtab
-set relativenumber 
+set number 
+set relativenumber
+nmap \n :setlocal number!<CR>
+nmap \p :set paste!<CR>
+map \t :NERDTreeToggle<CR>
 
 imap <leader>' ''<ESC>i
 imap <leader>" ""<ESC>i
@@ -44,13 +42,24 @@ imap <leader>( ()<ESC>i
 imap <leader>[ []<ESC>i
 imap <leader>{ {}<ESC>i
 imap <leader>< <><ESC>i
-imap <leader>. class=""<ESC>i
-imap <leader># id=""<ESC>i
+imap <leader># class=""<ESC>i
+imap <leader>. id=""<ESC>i
 
-map \t :NERDTreeToggle<CR>
+:command W w 
+:command Wq wq
 
-command W w 
+
+if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+  set t_Co=256
+endif
+
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+colorscheme brookstream
 
 let g:netrw_ftp_cmd = 'pftp'
 set completeopt=longest,menuone
+syntax enable 
+set t_co=256
+set background=dark
+colorscheme primary
 
