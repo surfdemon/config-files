@@ -1,3 +1,9 @@
+if empty(glob('~/.vim/autoload/plug.vim'))
+      silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+      autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
 call plug#begin()
   Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
   Plug 'https://github.com/msanders/snipmate.vim.git'
@@ -54,12 +60,10 @@ if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gno
 endif
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-colorscheme brookstream
 
 let g:netrw_ftp_cmd = 'pftp'
 set completeopt=longest,menuone
 syntax enable 
-set t_co=256
 set background=dark
 colorscheme primary
 
